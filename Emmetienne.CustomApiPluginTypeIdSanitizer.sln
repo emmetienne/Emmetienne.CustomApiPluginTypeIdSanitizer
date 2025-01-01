@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emmetienne.CustomApiPluginTypeIdSanitizer", "Emmetienne.CustomApiPluginTypeIdSanitizer.csproj", "{235EFB53-68D2-4E48-9EDA-302B49A53007}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{235EFB53-68D2-4E48-9EDA-302B49A53007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{235EFB53-68D2-4E48-9EDA-302B49A53007}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{235EFB53-68D2-4E48-9EDA-302B49A53007}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{235EFB53-68D2-4E48-9EDA-302B49A53007}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {62E82AC0-8E38-44F3-A283-9A0A40B54346}
+	EndGlobalSection
+EndGlobal
