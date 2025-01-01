@@ -1,0 +1,72 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup MSBuild path
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Restore NuGet packages
+      run: nuget restore Emmetienne.Emmetienne.CustomApiPluginTypeIdSanitizer.sln
+
+    - name: Build solution
+      run: msbuild Emmetienne.Emmetienne.CustomApiPluginTypeIdSanitizer.sln /p:Configuration=Release /p:Platform="Any CPU"
+
+    - name: Zip artifacts
+      run: Compress-Archive -Path .\bin\Release\Emmetienne.Emmetienne.CustomApiPluginTypeIdSanitizer.dll -DestinationPath Release.zip
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: release-artifact
+        path: Release.zip
+
+  release:
+    needs: build
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+          
+    - name: Extract version      
+      id: extract_version      
+      run: |      
+        $version = Select-String -Path Properties/AssemblyInfo.cs -Pattern '\[assembly: AssemblyFileVersion\("(.*)"\)\]' | ForEach-Object { $_.Matches.Groups[1].Value }      
+        echo "Extracted version: $version"      
+        echo "AssemblyVersion=$version" | Out-File -FilePath $env:GITHUB_ENV -Append   
+      shell: pwsh    
+      
+    - name: Download artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: release-artifact
+        path: .
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ env.AssemblyVersion }}
+        release_name: Release ${{ env.AssemblyVersion }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./Release.zip
+        asset_name: Release.zip
+        asset_content_type: application/zip
