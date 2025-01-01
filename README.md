@@ -1,4 +1,6 @@
-# Emmetienne.CustomApiPluginTypeIdSanitizer
+[![Build and Release](https://github.com/emmetienne/Emmetienne.CustomApiPluginTypeIdSanitizer/actions/workflows/build-and-release.yml/badge.svg)](https://github.com/emmetienne/Emmetienne.CustomApiPluginTypeIdSanitizer/actions/workflows/build-and-release.yml)
+
+## Emmetienne.CustomApiPluginTypeIdSanitizer
 
 This tool is designed to address a gap in the Microsoft implementation of Custom APIs in Dynamics 365, particularly regarding the `plugintypeid` field. 
 
